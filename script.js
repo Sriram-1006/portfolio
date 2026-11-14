@@ -52,11 +52,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ---- Typewriter Effect ----
   const phrases = [
-    'beautiful web experiences.',
-    'performant applications.',
-    'stunning user interfaces.',
-    'scalable solutions.',
-    'delightful interactions.'
+    'AI and machine learning projects.',
+    'full-stack web applications.',
+    'data-driven experiences.'
   ];
   const typeEl = document.getElementById('typewriter');
   let phraseIdx = 0, charIdx = 0, deleting = false;
@@ -92,17 +90,17 @@ document.addEventListener('DOMContentLoaded', () => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         const el = entry.target;
-        const target = parseInt(el.dataset.count);
+        const target = parseFloat(el.dataset.count);
         const numEl  = el.querySelector('.stat-number');
         let current  = 0;
-        const step   = Math.max(1, Math.ceil(target / 50));
+        const step   = Number.isInteger(target) ? Math.max(1, Math.ceil(target / 50)) : target / 50;
         const interval = setInterval(() => {
           current += step;
           if (current >= target) {
             current = target;
             clearInterval(interval);
           }
-          numEl.textContent = current;
+          numEl.textContent = Number.isInteger(target) ? current : current.toFixed(2);
         }, 30);
         countObserver.unobserve(el);
       }
